@@ -15,7 +15,13 @@ def generate_grid(N, M):
     for i in range(N):
         grid.append([])
         for j in range(M):
-            grid[i].append("wall")
+            for j in range(M):
+                if i == 0 or i == N - 1:  # Top and bottom walls
+                    grid[i].append("top_bottom_wall")
+                elif j == 0 or j == M - 1:  # Side walls
+                    grid[i].append("side_wall")
+                else:
+                    grid[i].append("wall")
 
     # Place random lines inside the grid
     num_lines = random.randint(N * M // 4, N * M // 2)
@@ -174,25 +180,18 @@ def example_callback(grid, up, down, left, right):
         right_valid = right is not None
         left_valid = left is not None
 
-        # if valid_directions:
-        #     direcao = random.choice(valid_directions)
-        #     return direcao
-
-        # if up_valid or down_valid or right_valid or left_valid:
-        #     if right_valid: 
-                
-        #         return "right"
-        #     elif valid_directions:
-        #         return random.choice(valid_directions)
 
         if up_valid or down_valid or right_valid or left_valid:
             if right_valid:
                 direction = "right"
-                
+                # if grid[app.bill_i][app.bill_j + 1] != "wall":
+                #     grid[app.bill_i][app.bill_j + 1] = "visited"
+
             elif valid_directions:
                 direction = random.choice(valid_directions)
                     
             return direction
+            
 
         return None
 
